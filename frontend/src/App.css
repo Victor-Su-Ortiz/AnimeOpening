@@ -1,38 +1,564 @@
-.App {
-  text-align: center;
+/* Anime-themed CSS for Anime Opening Generator */
+
+/* Import anime-style font */
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600;800&display=swap');
+
+/* Root variables for consistent theme */
+:root {
+  --primary-color: #ff5da2;
+  --secondary-color: #4a28ea;
+  --accent-color: #fbff00;
+  --dark-color: #1a0238;
+  --light-color: #f8f9ff;
+  --success-color: #00e676;
+  --danger-color: #ff3d71;
+  --gradient-primary: linear-gradient(135deg, #ff5da2 0%, #4a28ea 100%);
+  --gradient-secondary: linear-gradient(135deg, #4a28ea 0%, #00e676 100%);
+  --gradient-accent: linear-gradient(90deg, #fbff00 0%, #ff5da2 100%);
+  --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  --glow-effect: 0 0 15px rgba(255, 93, 162, 0.5);
 }
 
-.App-logo {
-  height: 40vmin;
+/* Base styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--dark-color);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(74, 40, 234, 0.2) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(255, 93, 162, 0.2) 0%, transparent 20%),
+    radial-gradient(circle at 50% 50%, rgba(251, 255, 0, 0.1) 0%, transparent 30%);
+  color: var(--light-color);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Anime-style heading typography */
+h1, h2, h3 {
+  font-family: 'Bangers', cursive;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+
+h1 {
+  font-size: 3.5rem;
+  text-shadow: 3px 3px 0 var(--dark-color), 
+               6px 6px 0 var(--accent-color);
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 2.2rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 0.8rem;
+}
+
+/* Container with cool border effect */
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  position: relative;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid transparent;
+  background: var(--gradient-primary);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  border-radius: 1rem;
+}
+
+/* Cool anime-style cards */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 1px;
+  background: var(--gradient-accent);
+  animation: borderGlow 4s linear infinite;
+}
+
+@keyframes borderGlow {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Anime buttons */
+.btn {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  background: var(--gradient-primary);
+  color: var(--light-color);
+  border: none;
+  box-shadow: var(--box-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-secondary);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.btn:hover::before {
+  left: 0;
+}
+
+.btn:hover {
+  box-shadow: var(--glow-effect);
+  transform: translateY(-3px);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+  background: var(--primary-color);
+  color: var(--light-color);
+}
+
+/* Form elements with anime style */
+.form-control {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.8rem 1rem;
+  color: var(--light-color);
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: var(--glow-effect);
+}
+
+/* Theme selection cards */
+.theme-card {
+  border: 3px solid transparent;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-card::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: var(--gradient-primary);
+  transition: all 0.5s ease;
+  transform: rotate(45deg);
+  opacity: 0;
+  z-index: -1;
+}
+
+.theme-card:hover::before {
+  top: -50%;
+  left: -50%;
+  opacity: 0.1;
+}
+
+.theme-card.selected {
+  border-color: var(--primary-color);
+  background: rgba(255, 93, 162, 0.1);
+  transform: scale(1.03);
+}
+
+.theme-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1rem;
+}
+
+/* Image upload area with anime style */
+.upload-area {
+  border: 3px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+}
+
+.upload-area:hover {
+  border-color: var(--primary-color);
+  background: rgba(255, 93, 162, 0.05);
+}
+
+.upload-area::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(255, 93, 162, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 70% 70%, rgba(74, 40, 234, 0.1) 0%, transparent 20%);
+  z-index: -1;
+  border-radius: 1rem;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Preview thumbnails */
+.preview-thumbnail {
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: var(--box-shadow);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.preview-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.preview-thumbnail:hover img {
+  transform: scale(1.1);
+}
+
+.preview-thumbnail .remove-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 25px;
+  height: 25px;
+  background: var(--danger-color);
+  color: white;
+  border-radius: 50%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.preview-thumbnail:hover .remove-btn {
+  opacity: 1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Loading spinner with anime style */
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.1);
+  border-left-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Progress bar */
+.progress-container {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 50px;
+  background: var(--gradient-primary);
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  animation: progressShimmer 2s infinite;
+}
+
+@keyframes progressShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Video player with anime-style controls */
+.video-container {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  margin: 2rem 0;
+}
+
+.video-player {
+  width: 100%;
+  background: #000;
+}
+
+.video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.video-container:hover .video-controls {
+  opacity: 1;
+}
+
+/* Custom scrollbar with anime style */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gradient-secondary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  h2 {
+    font-size: 1.8rem;
   }
+  
+  .container {
+    padding: 1rem;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Title with special anime effect */
+.anime-title {
+  position: relative;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.anime-title h1 {
+  display: inline-block;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.anime-title::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gradient-accent);
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.anime-title::after {
+  content: '★';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  color: var(--accent-color);
+  font-size: 2rem;
+  z-index: 2;
+  text-shadow: 0 0 10px var(--primary-color);
+  animation: starPulse 3s infinite;
+}
+
+@keyframes starPulse {
+  0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.2); }
+  100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+}
+
+/* Footer with anime style */
+.footer {
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 3rem;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 2px;
+  background: var(--gradient-primary);
+}
+
+/* Add sparkle effect elements */
+.sparkle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 0 10px 2px var(--primary-color);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.sparkle-1 { animation: sparkleAnimation 4s infinite 0s; top: 20%; left: 10%; }
+.sparkle-2 { animation: sparkleAnimation 5s infinite 1s; top: 70%; left: 85%; }
+.sparkle-3 { animation: sparkleAnimation 6s infinite 2s; top: 30%; left: 90%; }
+.sparkle-4 { animation: sparkleAnimation 7s infinite 3s; top: 80%; left: 20%; }
+.sparkle-5 { animation: sparkleAnimation 8s infinite 4s; top: 50%; left: 50%; }
+
+@keyframes sparkleAnimation {
+  0% { transform: scale(0); opacity: 0; }
+  20% { transform: scale(1); opacity: 1; }
+  40% { transform: scale(0.8); opacity: 0.8; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
 }

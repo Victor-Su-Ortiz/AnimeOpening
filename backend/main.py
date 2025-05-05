@@ -11,6 +11,7 @@ from typing import List, Dict, Any, Optional
 import json
 from pydantic import BaseModel
 import time
+from dotenv import load_dotenv
 
 # Import our custom components
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -19,6 +20,7 @@ from api.openai_narrative import AnimeNarrativeGenerator
 from api.cloudflare_video import AnimeVideoGenerator
 from api.stytch_integration import MockStytchService, get_current_user
 
+load_dotenv()
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,

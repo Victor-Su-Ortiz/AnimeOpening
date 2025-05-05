@@ -24,3 +24,11 @@ yarn-debug.log*
 yarn-error.log*
 
 venv
+
+temp
+temp_video
+transformed_images
+
+__pycache__
+
+app.log

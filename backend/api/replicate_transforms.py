@@ -20,6 +20,8 @@ class AnimeImageTransformer:
     
     async def transform_image(self, image_path, theme="action", character_role=None):
         """Transform an image to anime style with specific theme considerations"""
+
+        print("we are trying to do this")
         
         # Different models for different themes/styles
         models = {
@@ -54,70 +56,80 @@ class AnimeImageTransformer:
             with open(image_path, "rb") as f:
                 image_data = base64.b64encode(f.read()).decode("utf-8")
             
-            # Choose model parameters based on the selected model
-            if "sdxl" in model_id:
-                # For Stable Diffusion models
-                output = self.client.run(
-                    model_id,
-                    input={
-                        "prompt": prompt,
-                        "image": f"data:image/jpeg;base64,{image_data}",
-                        "strength": 0.7,  # Keep some original features
-                        "num_inference_steps": 30,
-                        "guidance_scale": 7.5,
-                        "negative_prompt": "deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation"
-                    }
-                )
-                image_url = output[0]  # The output is a URL to the generated image
+            # # Choose model parameters based on the selected model
+            # if "sdxl" in model_id:
+            #     # For Stable Diffusion models
+            #     output = self.client.run(
+            #         model_id,
+            #         input={
+            #             "prompt": prompt,
+            #             "image": f"data:image/jpeg;base64,{image_data}",
+            #             "strength": 0.7,  # Keep some original features
+            #             "num_inference_steps": 30,
+            #             "guidance_scale": 7.5,
+            #             "negative_prompt": "deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation"
+            #         }
+            #     )
+            #     image_url = output[0]  # The output is a URL to the generated image
             
-            elif "animegan2" in model_id:
-                # For AnimeGAN models
-                output = self.client.run(
-                    model_id,
-                    input={
-                        "image": f"data:image/jpeg;base64,{image_data}"
-                    }
-                )
-                image_url = output  # The output is a URL to the transformed image
+            # elif "animegan2" in model_id:
+            #     # For AnimeGAN models
+            #     output = self.client.run(
+            #         model_id,
+            #         input={
+            #             "image": f"data:image/jpeg;base64,{image_data}"
+            #         }
+            #     )
+            #     image_url = output  # The output is a URL to the transformed image
             
-            elif "portraitplus" in model_id:
-                # For PortraitPlus model
-                output = self.client.run(
-                    model_id, 
-                    input={
-                        "image": f"data:image/jpeg;base64,{image_data}",
-                        "prompt": prompt,
-                        "negative_prompt": "deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation"
-                    }
-                )
-                image_url = output[0]  # The output is a URL to the generated image
+            # elif "portraitplus" in model_id:
+            #     # For PortraitPlus model
+            #     output = self.client.run(
+            #         model_id, 
+            #         input={
+            #             "image": f"data:image/jpeg;base64,{image_data}",
+            #             "prompt": prompt,
+            #             "negative_prompt": "deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation"
+            #         }
+            #     )
+            #     image_url = output[0]  # The output is a URL to the generated image
             
-            elif "white-box-diffusion" in model_id:
-                # For White Box Diffusion
-                output = self.client.run(
-                    model_id,
-                    input={
-                        "image": f"data:image/jpeg;base64,{image_data}",
-                        "prompt": prompt,
-                        "guidance_scale": 7.5,
-                        "num_inference_steps": 50,
-                        "seed": np.random.randint(0, 1000000)
-                    }
-                )
-                image_url = output[0]  # The output is a URL to the generated image
+            # elif "white-box-diffusion" in model_id:
+            #     # For White Box Diffusion
+            #     output = self.client.run(
+            #         model_id,
+            #         input={
+            #             "image": f"data:image/jpeg;base64,{image_data}",
+            #             "prompt": prompt,
+            #             "guidance_scale": 7.5,
+            #             "num_inference_steps": 50,
+            #             "seed": np.random.randint(0, 1000000)
+            #         }
+            #     )
+            #     image_url = output[0]  # The output is a URL to the generated image
             
-            else:
+            # else:
                 # Generic approach for other models
-                output = self.client.run(
-                    model_id,
-                    input={
-                        "image": f"data:image/jpeg;base64,{image_data}"
-                    }
+                # output = self.client.run(
+                #     model_id,
+                #     input={
+                #         "image": f"data:image/jpeg;base64,{image_data}"
+                #     }
+                # )
+                print("Hello World")
+                input = {
+                    "prompt": "anime character in dynamic action pose, battle ready, dramatic lighting",
+                    "main_face_image":  f"data:image/jpeg;base64,{image_data}"
+                }
+
+                output = replicate.run(
+                    "bytedance/pulid:43d309c37ab4e62361e5e29b8e9e867fb2dcbcec77ae91206a8d95ac5dd451a0",
+                    input=input
                 )
                 image_url = output
             
             # Download the transformed image
-            response = requests.get(image_url)
+            response = requests.get(image_url[0])
             if response.status_code == 200:
                 # Generate a unique filename
                 output_filename = f"{self.output_dir}/transformed_{uuid.uuid4()}.png"

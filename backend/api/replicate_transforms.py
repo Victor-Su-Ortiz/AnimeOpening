@@ -119,7 +119,10 @@ class AnimeImageTransformer:
                 print("Hello World")
                 input = {
                     "prompt": "anime character in dynamic action pose, battle ready, dramatic lighting",
-                    "main_face_image":  f"data:image/jpeg;base64,{image_data}"
+                    "main_face_image": f"data:image/jpeg;base64,{image_data}",
+                    "negative_prompt": "blurry, distorted features, bad anatomy, extra limbs, missing limbs",
+                    "num_inference_steps": 50,  # Higher steps for more detailed results
+                    "guidance_scale": 7.5       # Controls how closely output follows prompt
                 }
 
                 output = replicate.run(
